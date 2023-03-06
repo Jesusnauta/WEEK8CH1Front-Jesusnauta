@@ -1,15 +1,16 @@
-import { render } from "@testing-library/react";
-import { UsersList } from "../../feature/components/user.list/user.list";
+import React from "react";
+import { screen, render } from "@testing-library/react";
+import { Provider } from "react-redux";
+import { store } from "../store/store";
 import App from "./App";
 
-jest.mock("../../feature/components/user.list/user.list");
+test("renders learn react link", () => {
+  render(
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
 
-describe("Given App component", () => {
-  describe("When it is render", () => {
-    test("Then it should call UsersList component", () => {
-      render(<App />);
-
-      expect(UsersList).toHaveBeenCalled();
-    });
-  });
+  const result = screen.getByText(/Users/i);
+  expect(result).toBeInTheDocument();
 });
